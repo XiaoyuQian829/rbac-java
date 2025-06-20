@@ -6,23 +6,15 @@ A minimal, clean, and extensible **Role-Based Access Control (RBAC)** engine in 
 
 ---
 
-## Why This Project
+## 🔍 Why This Project Stands Out
 
-Unlike most RBAC demos that skip traceability or runtime enforcement, this project emphasizes:
+Unlike typical RBAC demos that skip runtime enforcement or traceability, this project focuses on clarity, control, and testability:
 
-- Real-time permission checks
-- Human-readable YAML configs
-- Clear separation of roles and permissions
-- CLI-based validation and simulation
-- Zero-framework design (no Spring, no DB)
-
-## Key Features
-
-- **Hot-reloadable Configs**: `UserRegistry.yaml` and `RolePermissions.yaml` can be updated and reloaded without restarting the app.
-- **Explicit Permission Checks**: Every action is resolved via the permission matrix. No hardcoded shortcuts.
-- **Scoped User Contexts**: All runtime behavior is bound to a `UserContext` derived from the role-permission structure.
-- **Command-line Testing**: Includes `RBACCli.java` for interactive testing and `RunAllUsers.java` for auditing all users.
-- **Minimal Dependencies**: Built with plain Java and SnakeYAML. No heavy frameworks.
+- ✅ **Real-time permission checks** — no hardcoded shortcuts
+- ✅ **Hot-reloadable YAML configs** — update roles/users without restarting
+- ✅ **Scoped `UserContext` sessions** — strict role-permission mapping
+- ✅ **CLI-based validation & auditing** — interactive tester + matrix dumper
+- ✅ **Minimal, framework-free design** — no Spring, no database
 
 ---
 
