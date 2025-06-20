@@ -100,7 +100,7 @@ The following diagram outlines the core runtime structure and permission validat
                 │       YamlLoader.java      │
                 └────────────────────────────┘
 
-
+```
 ---
 
 ## 📁 Project Structure
