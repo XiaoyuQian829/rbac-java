@@ -1,15 +1,42 @@
 # Java RBAC System
 
-A minimal **Role-Based Access Control (RBAC)** system in Java — powered by YAML configs, strict user validation, and colorful CLI demos.
+A minimal, clean, and extensible **Role-Based Access Control (RBAC)** engine in Java — powered by YAML configs, permission validation, and command-line interfaces.
 
-Designed to showcase:
-- ✅ Role → Permission mapping via YAML
-- ✅ Context construction: `user_id → role → permissions`
-- ✅ Real-time permission checks
-- ✅ CLI tools for verification and simulation
+> Originally extracted from **XQRiskCore**, this module provides a standalone RBAC layer, ideal for auditing, testing, and permission-controlled execution.
 
-> 🔧 Originally part of **XQRiskCore**,this project strips away all trading logic, retaining only the RBAC skeleton for clean, reusable access control.
-> ⚙️ No Spring, no database — just clean Java + config-driven logic.
+---
+
+## 🔍 Why This Matters
+
+Most open-source RBAC examples skip traceability, validation, or real-time usage simulation.
+
+This project delivers:
+
+- Real-time permission enforcement
+- Human-readable YAML configs
+- Command-line driven validation
+- Clean separation of concerns
+
+---
+
+## ✅ Key Features
+
+### Hot-reloadable Configs
+All access logic is driven by two YAML files: `UserRegistry.yaml` and `RolePermissions.yaml`. These can be updated and reloaded at runtime without restarting the application.
+
+### Structured Permission Checks
+Every permission is validated explicitly and can be logged or audited. No hidden assumptions — everything is resolved through the permission matrix.
+
+### Role-Scoped Contexts
+Permissions are tied to `UserContext` objects resolved from `ContextBuilder`, ensuring all access flows are permission-scoped.
+
+### CLI-Based Testing
+Includes two CLI interfaces:
+- `RBACCli.java`: interactive permission testing
+- `RunAllUsers.java`: permission matrix dump for all users
+
+### Zero Framework Overhead
+No Spring, no database. Built with plain Java, SnakeYAML, and Maven — easy to inspect, modify, or embed.
 
 ---
 
