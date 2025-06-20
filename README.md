@@ -1,122 +1,168 @@
-# 🔐 RBAC-Java
+# 🛡️ Java RBAC System — Lightweight, Readable, Extensible
 
-A minimal yet powerful **Role-Based Access Control (RBAC)** engine — built in Java, powered by YAML config, tested via CLI.
+A minimal **Role-Based Access Control (RBAC)** system in Java — powered by YAML configs, strict user validation, and colorful CLI demos.
 
-> ✅ Permission-aware sessions  
-> ✅ Hot-editable role/permission YAMLs  
-> ✅ CLI tools for validation, demos, and audits
+Designed to showcase:
+- ✅ Role → Permission mapping via YAML
+- ✅ Context construction: `user_id → role → permissions`
+- ✅ Real-time permission checks
+- ✅ CLI tools for verification and simulation
 
----
-
-## 📦 Project Structure
-
-```
-rbac-java/
-├── pom.xml                          ← ✅ Maven build descriptor
-│                                      - Declares dependencies, entry point
-│                                      - Configures CLI execution
-│
-├── config/                          ← ✅ External YAML configs (hot-editable)
-│   ├── RolePermissions.yaml         ← Role → permission matrix (true/false per action)
-│   └── UserRegistry.yaml            ← User → role map + client_id + active status
-│
-├── src/
-│   ├── main/java/
-│   │   ├── admin/                   ← Admin-only console: modify users, roles, permissions
-│   │   ├── cli/                     ← CLI tool to login, check permissions
-│   │   ├── demo/                    ← CLI batch runner for permission matrix (RunAllUsers)
-│   │   ├── context/                 ← Builds contextual permission scope
-│   │   ├── core/                    ← Core RBAC logic (grant checks, permission loader)
-│   │   ├── users/                   ← User registry loader
-│   │   ├── utils/                   ← YAML utilities
-│   │   └── model/                   ← Domain objects: UserContext, Role, Permission
-│
-│   └── test/java/                   ← ✅ JUnit tests
-│       └── context/ContextBuilderTest.java
-```
+> 🔧 Inspired by real-world systems like **XQRiskCore**.  
+> ⚙️ No Spring, no database — just clean Java + config-driven logic.
 
 ---
 
-## 🚀 Quick Start
+## 📁 Project Structure
 
 ```bash
-# Compile the project
-mvn compile
+rbac-java/
+├── pom.xml                          ← ✅ Maven build descriptor
+│                                      - Declares dependencies, Java version, entry point
+│                                      - Configures exec plugin to launch RBACCli
 
-# Run CLI as a specific user (e.g. 'alice')
-mvn exec:java -Dexec.mainClass="cli.RBACCli"
+├── config/                          ← ✅ External YAML configs (hot-editable)
+│   ├── RolePermissions.yaml         ← Role-to-permission matrix (true/false per action)
+│   └── UserRegistry.yaml            ← User-to-role map + client_id + activation status
 
-# Run full permission matrix test for all users
-mvn exec:java -Dexec.mainClass="demo.RunAllUsers"
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       ├── admin/               ← ✅ Admin-only command console (permission editor)
+│   │       │   └── AdminCommandConsole.java
+│   │       │      - Interactive console for modifying users, roles, permissions
+│   │       │      - Supports commands like: grant, revoke, add_user, reload, save
+
+│   │       ├── cli/                 ← ✅ Command-line interface for RBAC testing
+│   │       │   └── RBACCli.java
+│   │       │      - Login as any user
+│   │       │      - View granted permissions
+│   │       │      - Test any permission key interactively
+
+│   │       ├── context/             ← ✅ Constructs UserContext objects
+│   │       │   └── ContextBuilder.java
+│   │       │      - Combines user + role info into permission-aware session context
+
+│   │       ├── core/                ← ✅ Core RBAC engine
+│   │       │   └── PermissionsManager.java
+│   │       │      - Loads, manages, saves RolePermissions.yaml
+│   │       │      - Validates permissions, enforces grant logic
+
+│   │       ├── model/               ← ✅ Core domain objects
+│   │       │   ├── Permission.java         ← Represents single permission key + granted flag
+│   │       │   ├── Role.java              ← Represents role name + permissions
+│   │       │   └── UserContext.java       ← Runtime container for a user’s resolved context
+
+│   │       ├── users/               ← ✅ User registry loader
+│   │       │   └── UserRegistryManager.java
+│   │       │      - Loads UserRegistry.yaml
+│   │       │      - Provides user metadata by ID
+
+│   │       └── utils/               ← ✅ Utilities shared across modules
+│   │           └── YamlLoader.java
+│   │              - Reads and writes YAML files generically
+│   │              - Used by both user and permission managers
+
+│
+│   └── resources/                   ← (Optional) for internalized configs, templates, docs
+│
+
+└── src/
+    └── test/
+        └── java/
+            └── context/
+                └── ContextBuilderTest.java ← ✅ JUnit tests for ContextBuilder & permission logic
 ```
 
 ---
 
-## 🧪 Demo Output: Permission Matrix
+## ⚙️ How It Works
+
+- `UserRegistry.yaml` defines **users → roles**
+- `RolePermissions.yaml` defines **roles → permissions**
+- `ContextBuilder` resolves a `UserContext` object
+- CLI scripts simulate runtime access control
+
+---
+
+## 🧪 Try It Live (Command Line)
+
+### 1. Compile
+
+```bash
+mvn clean compile
+```
+
+### 2. Run: Interactive Mode
+
+```bash
+mvn exec:java -Dexec.mainClass=cli.RBACCli
+```
+
+```text
+Enter user ID: alice
+✅ Role: admin
+🔑 Permissions:
+   ✔ admin.manage_users
+   ✔ admin.trigger_global_killswitch
+   ...
+
+> trader.view_portfolio
+⛔ DENIED
+
+> admin.manage_users
+✅ ALLOWED
+```
+
+### 3. Run: Permission Matrix Audit
+
+```bash
+mvn exec:java -Dexec.mainClass=demo.RunAllUsers
+```
 
 ```text
 ========= RBAC Permission Matrix =========
 
 👤 User: alice
-    ✔ admin.modify_role_permission
-    ✔ admin.view_action_logs
-    ✘ trader.view_portfolio
-    ✘ observer.inspect_config
+    ✔ admin.manage_users
+    ✘ trader.submit_manual_trade
+    ✔ admin.edit_asset_config
     ...
 
 👤 User: bob
-    ✘ admin.modify_role_permission
+    ✘ admin.manage_users
+    ✘ trader.submit_manual_trade
     ...
+==========================================
 ```
 
-- ✔ = Allowed (green in terminal)  
-- ✘ = Denied (red in terminal)
-
 ---
 
-## ⚙️ Core Features
+## 🔐 Sample Config (YAML)
 
-- 🔑 Role-to-permission mapping via `RolePermissions.yaml`
-- 👤 User-to-role mapping via `UserRegistry.yaml`
-- 🔍 Permission resolution via `PermissionsManager`
-- 🧠 Session context via `ContextBuilder`
-- 🛠️ Live modification via `AdminCommandConsole`
-- ✅ Ready-to-run CLI tools for testing + demos
-
----
-
-## 🧾 Example Configs
-
-<details>
-<summary><code>config/RolePermissions.yaml</code></summary>
+### RolePermissions.yaml
 
 ```yaml
 admin:
-  modify_role_permission: true
-  view_action_logs: true
-  trigger_global_killswitch: true
+  - admin.manage_users
+  - admin.edit_asset_config
 
 trader:
-  submit_manual_trade: true
-  view_portfolio: true
+  - trader.submit_manual_trade
+  - trader.view_portfolio
 ```
-</details>
 
-<details>
-<summary><code>config/UserRegistry.yaml</code></summary>
+### UserRegistry.yaml
 
 ```yaml
 alice:
   role: admin
-  client_id: A1
   active: true
 
 bob:
   role: trader
-  client_id: B2
   active: true
 ```
-</details>
 
 ---
 
