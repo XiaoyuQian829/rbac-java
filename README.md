@@ -1,27 +1,28 @@
 # Java RBAC System
 
-A governance-focused **Role-Based Access Control (RBAC)** engine in Java — designed for clarity, traceability, and rule-based permission enforcement via YAML configs and CLI simulation.
+A governance-grade **Role-Based Access Control (RBAC)** engine in Java — built for systems where **separation of duties**, **explicit approval**, **live reconfiguration**, and **auditable enforcement** are non-negotiable.
 
-> Originally extracted from **XQRiskCore**, this module provides a standalone authorization layer — ideal for auditing, testing, and permission-controlled execution.
-
----
-
-## 🧭 Governance-Oriented Authorization (Not Identity Management)
-
-This system **does not handle login, JWT, or user authentication**.  
-It assumes identity is already verified upstream (e.g., via OAuth, SSO) — and focuses entirely on **what users are allowed to do**, why they are allowed, and how that permission is enforced, simulated, and traced.
+> Extracted from **XQRiskCore**, this module serves as a standalone policy enforcement layer — ideal for testing, simulating, and governing permission-controlled execution environments.
 
 ---
 
-## 🔍 Why This Project Stands Out
+## 🛡️ Designed for Governance, Not Login
 
-Unlike typical RBAC demos that skip runtime enforcement or traceability, this project focuses on governance fidelity:
+This system **does not handle authentication** (e.g., JWT, OAuth, login sessions).  
+It assumes identity is verified upstream — and focuses entirely on **what a user is allowed to do**, under what role, under what conditions, and whether that action can be simulated and explained.
 
-- ✅ **Real-time permission checks** — no hardcoded shortcuts  
-- ✅ **Hot-reloadable YAML configs** — update roles/users without restarting  
-- ✅ **Scoped `UserContext` sessions** — strict role-permission mapping  
-- ✅ **CLI-based validation & simulation** — interactive tester + matrix dumper  
-- ✅ **Minimal, framework-free design** — no Spring, no database
+---
+
+## 🔍 What Makes It Different
+
+While most RBAC examples focus on access toggles, this engine focuses on **governance clarity** — built around four operational pillars:
+
+- ✅ **Isolation** — strict role boundaries, no hardcoded bypass  
+- ✅ **Approval** — every action must be explicitly granted in config  
+- ✅ **Hot Configuration** — roles and users updated via reloadable YAML  
+- ✅ **Auditability** — CLI-based simulation, matrix dumps, and future log hooks
+
+> Simple to use. Hard to misuse. Built for systems where trust must be earned through structure.
 
 ---
 
