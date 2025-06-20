@@ -1,0 +1,44 @@
+alice:
+  role: admin
+  client_id: A001
+  active: true
+
+bob:
+  role: auditor
+  client_id: A001
+  active: true
+
+charlie:
+  role: auditor
+  client_id: A888
+  active: true
+
+diana:
+  role: risker
+  client_id: R101
+  active: true
+
+frank:
+  role: compliance_officer
+  client_id: CLP66
+  active: true
+
+grace:
+  role: quant_researcher
+  client_id: Q888
+  active: true
+
+henry:
+  role: strategy_agent
+  client_id: STG01
+  active: true
+
+tom:
+  role: testengine
+  client_id: A001
+  active: true
+
+eve:
+  role: observer
+  client_id: A001
+  active: true

@@ -1,0 +1,11 @@
+model/Permission.class
+cli/RBACCli.class
+context/ContextBuilder.class
+demo/RBACTestConsole.class
+model/UserContext.class
+users/UserRegistryManager.class
+model/Role.class
+utils/YamlLoader.class
+admin/AdminCommandConsole.class
+demo/RunAllUsers.class
+core/PermissionsManager.class

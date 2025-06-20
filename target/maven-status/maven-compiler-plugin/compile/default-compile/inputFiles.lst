@@ -1,0 +1,11 @@
+/Users/uqxqian/Desktop/rbac-java/src/main/java/admin/AdminCommandConsole.java
+/Users/uqxqian/Desktop/rbac-java/src/main/java/cli/RBACCli.java
+/Users/uqxqian/Desktop/rbac-java/src/main/java/context/ContextBuilder.java
+/Users/uqxqian/Desktop/rbac-java/src/main/java/core/PermissionsManager.java
+/Users/uqxqian/Desktop/rbac-java/src/main/java/demo/RBACTestConsole.java
+/Users/uqxqian/Desktop/rbac-java/src/main/java/demo/RunAllUsers.java
+/Users/uqxqian/Desktop/rbac-java/src/main/java/model/Permission.java
+/Users/uqxqian/Desktop/rbac-java/src/main/java/model/Role.java
+/Users/uqxqian/Desktop/rbac-java/src/main/java/model/UserContext.java
+/Users/uqxqian/Desktop/rbac-java/src/main/java/users/UserRegistryManager.java
+/Users/uqxqian/Desktop/rbac-java/src/main/java/utils/YamlLoader.java

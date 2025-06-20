@@ -1,0 +1,56 @@
+rbac-java/
+├── pom.xml                          ← ✅ Maven build descriptor
+│                                      - Declares dependencies, Java version, entry point
+│                                      - Configures exec plugin to launch RBACCli or other CLIs
+
+├── config/                          ← ✅ External YAML configs (hot-editable)
+│   ├── RolePermissions.yaml         ← Role-to-permission matrix (true/false per action)
+│   └── UserRegistry.yaml            ← User-to-role map + client_id + activation status
+
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       ├── admin/               ← ✅ Admin-only command console
+│   │       │   └── AdminCommandConsole.java
+│   │       │      - Interactive shell for modifying roles, users, permissions
+│   │       │      - Commands: grant, revoke, add_user, list, reload, save
+
+│   │       ├── cli/                 ← ✅ Command-line interface tools
+│   │       │   ├── RBACCli.java           ← Login as user, test permissions interactively
+│   │       │   └── RunAllUsers.java       ← Audit all users against all permissions
+
+│   │       ├── context/             ← ✅ Builds user context at runtime
+│   │       │   └── ContextBuilder.java
+│   │       │      - Combines user + role → creates permission-aware UserContext
+
+│   │       ├── core/                ← ✅ Core RBAC engine logic
+│   │       │   └── PermissionsManager.java
+│   │       │      - Loads RolePermissions.yaml
+│   │       │      - Validates access: hasPermission(UserContext, action)
+
+│   │       ├── model/               ← ✅ Domain models
+│   │       │   ├── Permission.java         ← Represents permission key + access flag
+│   │       │   ├── Role.java               ← Represents a role and its granted permissions
+│   │       │   └── UserContext.java        ← Runtime object holding user ID, role, and permissions
+
+│   │       ├── users/               ← ✅ User registry system
+│   │       │   └── UserRegistryManager.java
+│   │       │      - Loads UserRegistry.yaml
+│   │       │      - Provides user info + new: getAllUserIds(), reload()
+
+│   │       └── utils/               ← ✅ Utilities
+│   │           └── YamlLoader.java
+│   │              - Loads/saves YAML files
+│   │              - Parses role-permission map, user registry
+│   │              - Includes loadAllPermissions() to enumerate all defined permission keys
+
+│
+│   └── resources/                   ← (Optional) resource bundle
+│       └── (e.g., sample templates or defaults)
+
+├── src/
+│   └── test/
+│       └── java/
+│           └── context/
+│               └── ContextBuilderTest.java ← ✅ Unit tests for context + permissions
+
