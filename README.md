@@ -6,37 +6,23 @@ A minimal, clean, and extensible **Role-Based Access Control (RBAC)** engine in 
 
 ---
 
-## 🔍 Why This Matters
+## Why This Project
 
-Most open-source RBAC examples skip traceability, validation, or real-time usage simulation.
+Unlike most RBAC demos that skip traceability or runtime enforcement, this project emphasizes:
 
-This project delivers:
-
-- Real-time permission enforcement
+- Real-time permission checks
 - Human-readable YAML configs
-- Command-line driven validation
-- Clean separation of concerns
+- Clear separation of roles and permissions
+- CLI-based validation and simulation
+- Zero-framework design (no Spring, no DB)
 
----
+## Key Features
 
-## ✅ Key Features
-
-### Hot-reloadable Configs
-All access logic is driven by two YAML files: `UserRegistry.yaml` and `RolePermissions.yaml`. These can be updated and reloaded at runtime without restarting the application.
-
-### Structured Permission Checks
-Every permission is validated explicitly and can be logged or audited. No hidden assumptions — everything is resolved through the permission matrix.
-
-### Role-Scoped Contexts
-Permissions are tied to `UserContext` objects resolved from `ContextBuilder`, ensuring all access flows are permission-scoped.
-
-### CLI-Based Testing
-Includes two CLI interfaces:
-- `RBACCli.java`: interactive permission testing
-- `RunAllUsers.java`: permission matrix dump for all users
-
-### Zero Framework Overhead
-No Spring, no database. Built with plain Java, SnakeYAML, and Maven — easy to inspect, modify, or embed.
+- **Hot-reloadable Configs**: `UserRegistry.yaml` and `RolePermissions.yaml` can be updated and reloaded without restarting the app.
+- **Explicit Permission Checks**: Every action is resolved via the permission matrix. No hardcoded shortcuts.
+- **Scoped User Contexts**: All runtime behavior is bound to a `UserContext` derived from the role-permission structure.
+- **Command-line Testing**: Includes `RBACCli.java` for interactive testing and `RunAllUsers.java` for auditing all users.
+- **Minimal Dependencies**: Built with plain Java and SnakeYAML. No heavy frameworks.
 
 ---
 
