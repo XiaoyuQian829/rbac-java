@@ -8,7 +8,7 @@ Designed to showcase:
 - ✅ Real-time permission checks
 - ✅ CLI tools for verification and simulation
 
-> 🔧 Inspired by real-world systems like **XQRiskCore**.  
+> 🔧 Originally part of **XQRiskCore**,this project strips away all trading logic, retaining only the RBAC skeleton for clean, reusable access control.
 > ⚙️ No Spring, no database — just clean Java + config-driven logic.
 
 ---
