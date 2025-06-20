@@ -1,4 +1,4 @@
-# 🛡️ Java RBAC System — Lightweight, Readable, Extensible
+# Java RBAC System
 
 A minimal **Role-Based Access Control (RBAC)** system in Java — powered by YAML configs, strict user validation, and colorful CLI demos.
 
