@@ -200,7 +200,7 @@ rbac-java/
 
 ---
 
-## 🧪 Try It Live (Command Line)
+## 🧪 Try It (Command Line)
 
 ### 1. Compile
 
