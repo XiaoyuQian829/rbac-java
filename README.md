@@ -1,22 +1,54 @@
 # Java RBAC System
 
-A minimal, clean, and extensible **Role-Based Access Control (RBAC)** engine in Java — powered by YAML configs, permission validation, and command-line interfaces.
+A governance-focused **Role-Based Access Control (RBAC)** engine in Java — designed for clarity, traceability, and rule-based permission enforcement via YAML configs and CLI simulation.
 
-> Originally extracted from **XQRiskCore**, this module provides a standalone RBAC layer, ideal for auditing, testing, and permission-controlled execution.
+> Originally extracted from **XQRiskCore**, this module provides a standalone authorization layer — ideal for auditing, testing, and permission-controlled execution.
+
+---
+
+## 🧭 Governance-Oriented Authorization (Not Identity Management)
+
+This system **does not handle login, JWT, or user authentication**.  
+It assumes identity is already verified upstream (e.g., via OAuth, SSO) — and focuses entirely on **what users are allowed to do**, why they are allowed, and how that permission is enforced, simulated, and traced.
 
 ---
 
 ## 🔍 Why This Project Stands Out
 
-Unlike typical RBAC demos that skip runtime enforcement or traceability, this project focuses on clarity, control, and testability:
+Unlike typical RBAC demos that skip runtime enforcement or traceability, this project focuses on governance fidelity:
 
-- ✅ **Real-time permission checks** — no hardcoded shortcuts
-- ✅ **Hot-reloadable YAML configs** — update roles/users without restarting
-- ✅ **Scoped `UserContext` sessions** — strict role-permission mapping
-- ✅ **CLI-based validation & auditing** — interactive tester + matrix dumper
+- ✅ **Real-time permission checks** — no hardcoded shortcuts  
+- ✅ **Hot-reloadable YAML configs** — update roles/users without restarting  
+- ✅ **Scoped `UserContext` sessions** — strict role-permission mapping  
+- ✅ **CLI-based validation & simulation** — interactive tester + matrix dumper  
 - ✅ **Minimal, framework-free design** — no Spring, no database
 
 ---
+
+## 🔧 Architecture Call Flow
+
+```text
+           ┌────────────────────────────┐
+           │        RBACCli.java        │
+           └────────────┬───────────────┘
+                        │
+           ┌────────────▼───────────────┐
+           │      ContextBuilder        │
+           └────────────┬───────────────┘
+        ┌───────────────┴───────────────┐
+        ▼                               ▼
+┌──────────────────────┐     ┌────────────────────────┐
+│ UserRegistryManager  │     │  PermissionsManager     │
+└────────────┬─────────┘     └────────────┬────────────┘
+             ▼                            ▼
+     ┌──────────────┐           ┌───────────────────────┐
+     │ UserContext  │◄──────────┤ permission_map loader │
+     └──────┬───────┘           └────────────┬──────────┘
+            ▼                                ▼
+     ┌──────────────┐              ┌────────────────────┐
+     │ checkPermission() │◄────────┤ hasPermission()     │
+     └──────────────┘              └────────────────────┘
+
 
 ## 🔧 Architecture Call Flow
 
